@@ -40,4 +40,10 @@
     <string name="geofence_too_many_geofences">Your app has registered too many geofences.</string>
     <string name="geofence_too_many_pending_intents">You have provided too many PendingIntents to the addGeofences() call.</string>
     <string name="error_adding_geofence">Error Happened, Can\'t Add Geofence</string>
+    <string name="login_button_text">Login</string>
+    <string name="app_logo_image_description">TODO List Application</string>
+    <string name="login_header_text">TODO Application</string>
+    <string name="login_description_text">Welcome to TODO List Application. You can login from the below.</string>
+    <string name="login_google_button_text">Sign in with Google</string>
+    <string name="login_email_button">Sign in with Email</string>
 </resources>
