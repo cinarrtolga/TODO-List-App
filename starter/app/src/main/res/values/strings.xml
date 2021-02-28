@@ -46,4 +46,5 @@
     <string name="login_description_text">Welcome to TODO List Application. You can login from the below.</string>
     <string name="login_google_button_text">Sign in with Google</string>
     <string name="login_email_button">Sign in with Email</string>
+    <string name="save_location_button">Save</string>
 </resources>
