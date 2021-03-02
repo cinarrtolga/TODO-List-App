@@ -126,4 +126,6 @@ dependencies {
 
     //To Fix Multidex
     implementation 'com.android.support:multidex:1.0.3'
+
+    implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0"
 }
