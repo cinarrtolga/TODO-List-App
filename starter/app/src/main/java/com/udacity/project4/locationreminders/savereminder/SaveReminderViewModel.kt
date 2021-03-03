@@ -14,10 +14,10 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class SaveReminderViewModel(
-        val app: Application,
-        val dataSource: ReminderDataSource
+    val app: Application,
+    val dataSource: ReminderDataSource
 ) :
-        BaseViewModel(app) {
+    BaseViewModel(app) {
 
     val reminderTitle = MutableLiveData<String>()
     val reminderDescription = MutableLiveData<String>()
@@ -56,14 +56,14 @@ class SaveReminderViewModel(
         showLoading.value = true
         viewModelScope.launch {
             dataSource.saveReminder(
-                    ReminderDTO(
-                            reminderData.title,
-                            reminderData.description,
-                            reminderData.location,
-                            reminderData.latitude,
-                            reminderData.longitude,
-                            reminderData.id
-                    )
+                ReminderDTO(
+                    reminderData.title,
+                    reminderData.description,
+                    reminderData.location,
+                    reminderData.latitude,
+                    reminderData.longitude,
+                    reminderData.id
+                )
             )
 
             currentId.value = reminderData.id
@@ -97,12 +97,12 @@ class SaveReminderViewModel(
         val longitude = longitude.value
 
         return ReminderDataItem(
-                title,
-                description,
-                location,
-                latitude,
-                longitude,
-                currentId.value ?: UUID.randomUUID().toString()
+            title,
+            description,
+            location,
+            latitude,
+            longitude,
+            currentId.value ?: UUID.randomUUID().toString()
         )
     }
 }

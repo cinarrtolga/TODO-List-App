@@ -1,4 +1,4 @@
-package com.udacity.project4
+package com.udacity.project4.locationreminders
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData

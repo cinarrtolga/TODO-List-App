@@ -1,4 +1,4 @@
-package com.udacity.project4
+package com.udacity.project4.locationreminders
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
