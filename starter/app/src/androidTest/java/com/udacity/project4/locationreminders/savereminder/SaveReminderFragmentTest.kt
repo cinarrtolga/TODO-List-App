@@ -1,4 +1,4 @@
-package com.udacity.project4.locationreminders.reminderslist
+package com.udacity.project4.locationreminders.savereminder
 
 import android.app.Application
 import android.os.Build
@@ -9,17 +9,16 @@ import androidx.navigation.Navigation
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.udacity.project4.R
-import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.data.local.FakeAndroidDataSource
 import com.udacity.project4.locationreminders.data.local.RemindersDatabase
-import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -32,31 +31,20 @@ import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.mockito.Mockito.mock
-import org.robolectric.annotation.Config
-import androidx.test.espresso.action.ViewActions.click
 import org.mockito.Mockito.verify
+import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.P])
 @ExperimentalCoroutinesApi
 @MediumTest
-class ReminderListFragmentTest : KoinTest {
-
-    //TODO: test the navigation of the fragments.
-    //TODO: test the displayed data on the UI.
-    //TODO: add testing for the error messages.
+class SaveReminderFragmentTest : KoinTest {
 
     private lateinit var database: RemindersDatabase
     private val dataSource: FakeAndroidDataSource by inject()
 
     private val testModules = module {
         viewModel {
-            RemindersListViewModel(
-                    get(),
-                    get() as FakeAndroidDataSource
-            )
-        }
-        single {
             SaveReminderViewModel(
                     get(),
                     get() as FakeAndroidDataSource
@@ -87,45 +75,30 @@ class ReminderListFragmentTest : KoinTest {
     }
 
     @Test
-    fun reminderListFragment_blankFragmentCheck() {
-        val scenario = launchFragmentInContainer<ReminderListFragment>(Bundle(), R.style.AppTheme)
+    fun saveReminderFragment_blankFragmentCheck() {
+        val scenario = launchFragmentInContainer<SaveReminderFragment>(Bundle(), R.style.AppTheme)
         val navController = mock(NavController::class.java)
 
         scenario.onFragment {
             Navigation.setViewNavController(it.view!!, navController)
         }
 
-        onView(withId(R.id.noDataTextView)).check(matches(withText("No Data")))
+        onView(withId(R.id.saveReminder)).check(matches(isDisplayed()))
     }
 
     @Test
-    fun reminderListFragment_filledFragmentCheck() = runBlockingTest {
-        val reminder = ReminderDTO("Hello", "Hello World!", "World", 55.05, -05.55)
-        dataSource.saveReminder(reminder)
-
-        val scenario = launchFragmentInContainer<ReminderListFragment>(Bundle(), R.style.AppTheme)
+    fun saveReminderFragment_RedirectionToMapFragment() {
+        val scenario = launchFragmentInContainer<SaveReminderFragment>(Bundle(), R.style.AppTheme)
         val navController = mock(NavController::class.java)
 
         scenario.onFragment {
             Navigation.setViewNavController(it.view!!, navController)
         }
 
-        onView(withText("Hello")).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun reminderListFragment_RedirectionToSaveReminderFragmentCheck() {
-        val scenario = launchFragmentInContainer<ReminderListFragment>(Bundle(), R.style.AppTheme)
-        val navController = mock(NavController::class.java)
-
-        scenario.onFragment {
-            Navigation.setViewNavController(it.view!!, navController)
-        }
-
-        onView(withId(R.id.addReminderFAB)).perform(click())
+        onView(withId(R.id.selectLocation)).perform(click())
 
         verify(navController).navigate(
-                ReminderListFragmentDirections.toSaveReminder()
+                SaveReminderFragmentDirections.actionSaveReminderFragmentToSelectLocationFragment()
         )
     }
 }
