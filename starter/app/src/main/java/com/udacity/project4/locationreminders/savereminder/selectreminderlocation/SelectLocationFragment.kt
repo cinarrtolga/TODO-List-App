@@ -2,17 +2,22 @@ package com.udacity.project4.locationreminders.savereminder.selectreminderlocati
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import androidx.activity.addCallback
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.udacity.project4.R
 import com.udacity.project4.base.BaseFragment
@@ -20,9 +25,6 @@ import com.udacity.project4.databinding.FragmentSelectLocationBinding
 import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
 import com.udacity.project4.utils.setDisplayHomeAsUpEnabled
 import org.koin.android.ext.android.inject
-import androidx.activity.addCallback
-import androidx.navigation.fragment.findNavController
-import com.google.android.gms.maps.model.PointOfInterest
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
@@ -33,9 +35,9 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
     private lateinit var googleMap: GoogleMap
     private lateinit var navController: NavController
     private val REQUEST_LOCATION_PERMISSION = 1
-    var selectedLat = 0.0
-    var selectedLong = 0.0
-    var locationName = ""
+    var selectedLat = 51.60430713353941
+    var selectedLong = -0.06614643925656856
+    var locationName = "White Hart Lane"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -61,11 +63,6 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
             onLocationSelected()
         }
 
-//        TODO: add style to the map
-//        TODO: put a marker to location that the user selected
-
-//        TODO: call this function after the user confirms on the selected location
-
         return binding.root
     }
 
@@ -80,14 +77,11 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(homeLatLng, zoomLevel))
         googleMap.addMarker(MarkerOptions().position(homeLatLng))
         onLocationTouch(googleMap)
+        setMapStyle(googleMap)
         enableMyLocation()
     }
 
     private fun onLocationSelected() {
-        //        TODO: When the user confirms on the selected location,
-        //         send back the selected location details to the view model
-        //         and navigate back to the previous fragment to save the reminder and add the geofence
-
         _viewModel.latitude.value = selectedLat
         _viewModel.longitude.value = selectedLong
         _viewModel.reminderSelectedLocationStr.value = locationName
@@ -105,6 +99,23 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
                     .position(poi.latLng)
                     .title(poi.name)
             )
+        }
+    }
+
+    private fun setMapStyle(map: GoogleMap) {
+        try {
+            val success = map.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            requireContext(),
+                            R.raw.map_style
+                    )
+            )
+
+            if(!success) {
+                Log.e("Warning", "Style parsing failed.")
+            }
+        } catch (e: Resources.NotFoundException) {
+            Log.e("Warning", "Can't find style. Error", e)
         }
     }
 

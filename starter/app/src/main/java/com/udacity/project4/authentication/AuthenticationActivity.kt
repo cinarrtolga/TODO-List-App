@@ -7,7 +7,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.NavController
 import com.firebase.ui.auth.AuthMethodPickerLayout
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.AuthUI.IdpConfig
@@ -23,10 +22,7 @@ import com.udacity.project4.locationreminders.RemindersActivity
  */
 class AuthenticationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthenticationBinding
-
     private val viewModel by viewModels<AuthenticationViewModel>()
-
-    private lateinit var navController: NavController
 
     companion object {
         const val SIGN_IN_RESULT_CODE = 1001
@@ -36,21 +32,25 @@ class AuthenticationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_authentication)
 
+        //Assigning click function for login button.
         binding.loginButton.setOnClickListener { startSignInFlow() }
 
+        //Authentication control. When user authenticated, next activity starting.
         viewModel.authenticationState.observe(this, Observer { authenticationState ->
             when (authenticationState) {
                 AuthenticationViewModel.AuthenticationState.AUTHENTICATED -> {
                     startActivity(Intent(this, RemindersActivity::class.java))
                 }
-                else -> Log.e(
+                else -> Log.i(
                     "warning",
-                    "Authentication state that doesn't require any UI change $authenticationState"
+                    "User is unauthenticated."
                 )
             }
         })
     }
 
+    //With this function providing sign-in flow. For this sample we just have e-mail and google.
+    //It works with a custom layout xml which is coming from the layout folder. (custom_layout_xml)
     private fun startSignInFlow() {
         val providers: MutableList<IdpConfig> = ArrayList()
         providers.add(EmailBuilder().build())

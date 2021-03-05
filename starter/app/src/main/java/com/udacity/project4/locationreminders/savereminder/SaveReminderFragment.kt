@@ -56,7 +56,7 @@ class SaveReminderFragment : BaseFragment() {
 
         setDisplayHomeAsUpEnabled(true)
         binding.viewModel = _viewModel
-        geofencingClient = LocationServices.getGeofencingClient(requireContext())
+        geofencingClient = LocationServices.getGeofencingClient(requireActivity())
 
         binding.saveReminder.setOnClickListener {
             saveNewReminder()
@@ -101,14 +101,14 @@ class SaveReminderFragment : BaseFragment() {
     private fun foregroundAndBackgroundLocationPermissionApproved(): Boolean {
         val foregroundLocationApproved =
                 (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(
-                        this.requireContext(),
+                        requireActivity(),
                         Manifest.permission.ACCESS_FINE_LOCATION
                 ))
 
         val backgroundPermissionApproved =
                 if (runningQOrLater) {
                     PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(
-                            this.requireContext(),
+                            requireActivity(),
                             Manifest.permission.ACCESS_BACKGROUND_LOCATION
                     )
                 } else {
@@ -196,28 +196,24 @@ class SaveReminderFragment : BaseFragment() {
                 .addGeofence(geoFence)
                 .build()
 
-        Log.i("warning", "Konuya aslında geliyor")
-
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             geofencingClient.addGeofences(geofencingRequest, geofencePendingIntent)?.run {
                 addOnSuccessListener {
                     Toast.makeText(
-                            requireContext(),
+                            requireActivity(),
                             R.string.geofence_added_complete,
                             Toast.LENGTH_SHORT
                     ).show()
                 }
                 addOnFailureListener {
                     Toast.makeText(
-                            requireContext(),
+                            requireActivity(),
                             R.string.geofences_not_added,
                             Toast.LENGTH_SHORT
                     ).show()
                 }
             }
-            Log.i("warning", "Ahanda buraya girdi!")
         } else {
-            Log.i("warning", "Where is your permission lo?")
             return
         }
     }

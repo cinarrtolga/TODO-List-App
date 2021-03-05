@@ -20,8 +20,6 @@ import org.junit.runner.RunWith
 //Unit test the DAO
 @SmallTest
 class RemindersDaoTest {
-    // TODO: Add testing implementation to the RemindersDao.kt
-
     private lateinit var database: RemindersDatabase
 
     @Before
