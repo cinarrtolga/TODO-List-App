@@ -2,7 +2,18 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#ffffff</color>
+    <color name="colorLayoutBackground">#F7F8FA</color>
+    <color name="colorActionbarBackground">#99BAF9</color>
+    <color name="colorError">#40ff0400</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
+    <color name="material_green_600">#43A047</color>
+    <color name="material_green_500">#4CAF50</color>
+    <color name="material_green_700">#388E3C</color>
+    <color name="material_green_a200">#69F0AE</color>
+    <color name="material_lime_a800">#AFB42B</color>
+    <color name="material_lime_50">#F9FBE7</color>
+    <color name="material_purple_a700">#AA00FF</color>
+    <color name="material_purple_500">#9C27B0</color>
 </resources>

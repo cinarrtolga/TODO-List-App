@@ -24,6 +24,8 @@ class RemindersActivity : AppCompatActivity() {
 
     //Logout control in activity. If a user is unauthenticated, It is not possible to use any feature. 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
+
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_reminders)
 

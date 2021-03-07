@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.material.snackbar.Snackbar
@@ -62,6 +63,16 @@ class SaveReminderFragment : BaseFragment() {
             saveNewReminder()
         }
 
+        if (!foregroundAndBackgroundLocationPermissionApproved()) {
+            requestForegroundAndBackgroundLocationPermissions()
+        }
+
+        _viewModel.currentId.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                checkPermissionsAndStartGeofencing()
+            }
+        })
+
         return binding.root
     }
 
@@ -74,19 +85,8 @@ class SaveReminderFragment : BaseFragment() {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (grantResults.isEmpty() || grantResults[LOCATION_PERMISSION_INDEX] == PackageManager.PERMISSION_DENIED || (requestCode == REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE && grantResults[BACKGROUND_LOCATION_PERMISSION_INDEX] == PackageManager.PERMISSION_DENIED)) {
-            Log.i("Warning", "Permission denied.")
-        } else {
-            checkDeviceLocationSettingsAndStartGeofence()
-        }
-    }
-
     private fun saveNewReminder() {
         _viewModel.validateAndSaveReminder(_viewModel.getReminderObject())
-        checkPermissionsAndStartGeofencing()
     }
 
     private fun checkPermissionsAndStartGeofencing() {
@@ -139,6 +139,16 @@ class SaveReminderFragment : BaseFragment() {
         )
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (grantResults.isEmpty() || grantResults[LOCATION_PERMISSION_INDEX] == PackageManager.PERMISSION_DENIED || (requestCode == REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE && grantResults[BACKGROUND_LOCATION_PERMISSION_INDEX] == PackageManager.PERMISSION_DENIED)) {
+            Log.i("Warning", "5- Permission denied.")
+        } else {
+            checkDeviceLocationSettingsAndStartGeofence()
+        }
+    }
+
     private fun checkDeviceLocationSettingsAndStartGeofence(resolve: Boolean = true) {
         val locationRequest = LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_LOW_POWER
@@ -185,7 +195,7 @@ class SaveReminderFragment : BaseFragment() {
                 .setCircularRegion(
                         item.latitude!!,
                         item.longitude!!,
-                        100f
+                        200f
                 )
                 .setExpirationDuration(TimeUnit.HOURS.toMillis(1))
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
@@ -204,6 +214,10 @@ class SaveReminderFragment : BaseFragment() {
                             R.string.geofence_added_complete,
                             Toast.LENGTH_SHORT
                     ).show()
+
+                    Thread.sleep(1500)
+
+                    _viewModel.navigationCommand.value = NavigationCommand.Back
                 }
                 addOnFailureListener {
                     Toast.makeText(
@@ -214,6 +228,11 @@ class SaveReminderFragment : BaseFragment() {
                 }
             }
         } else {
+            Toast.makeText(
+                    requireActivity(),
+                    "There is no permission",
+                    Toast.LENGTH_SHORT
+            ).show()
             return
         }
     }

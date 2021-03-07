@@ -28,10 +28,12 @@
             android:id="@+id/save_location_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
+            android:background="@color/colorActionbarBackground"
+            android:fontFamily="@font/heebo"
             android:padding="16dp"
             android:text="@string/save_location_button"
             android:textColor="@color/white"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

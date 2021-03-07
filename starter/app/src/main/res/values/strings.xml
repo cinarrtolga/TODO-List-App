@@ -51,4 +51,5 @@
     <string name="login_email_button">Sign in with Email</string>
     <string name="save_location_button">Save</string>
     <string name="no_geofence_data">Geofence data could not found.</string>
+    <string name="remove_button_description">Item remove button</string>
 </resources>

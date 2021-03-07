@@ -29,7 +29,10 @@ class AuthenticationActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_authentication)
 
         //Assigning click function for login button.
@@ -42,8 +45,8 @@ class AuthenticationActivity : AppCompatActivity() {
                     startActivity(Intent(this, RemindersActivity::class.java))
                 }
                 else -> Log.i(
-                    "warning",
-                    "User is unauthenticated."
+                        "warning",
+                        "User is unauthenticated."
                 )
             }
         })
@@ -57,20 +60,20 @@ class AuthenticationActivity : AppCompatActivity() {
         providers.add(GoogleBuilder().build())
 
         val customLayout = AuthMethodPickerLayout
-            .Builder(R.layout.custom_login_layout)
-            .setGoogleButtonId(R.id.login_google_button)
-            .setEmailButtonId(R.id.login_email_button)
-            .build()
+                .Builder(R.layout.custom_login_layout)
+                .setGoogleButtonId(R.id.login_google_button)
+                .setEmailButtonId(R.id.login_email_button)
+                .build()
 
         startActivityForResult(
-            AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setAuthMethodPickerLayout(customLayout)
-                .setAvailableProviders(providers)
-                .setTheme(R.style.AppTheme)
-                .setIsSmartLockEnabled(false)
-                .build(),
-            SIGN_IN_RESULT_CODE
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAuthMethodPickerLayout(customLayout)
+                        .setAvailableProviders(providers)
+                        .setTheme(R.style.AppTheme)
+                        .setIsSmartLockEnabled(false)
+                        .build(),
+                SIGN_IN_RESULT_CODE
         )
     }
 }

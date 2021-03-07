@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="327dp"
+    android:height="80dp"
+    android:viewportWidth="327"
+    android:viewportHeight="80">
+
+    <path
+        android:name="item_background"
+        android:fillColor="#fff"
+        android:pathData="M22,0 L305,0 Q327,0,327,22 L327,58 Q327,80,305,80 L22,80 Q0,80,0,58 L0,22
+Q0,0,22,0 Z" />
+</vector>

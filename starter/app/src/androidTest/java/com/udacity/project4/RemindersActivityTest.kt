@@ -142,8 +142,6 @@ class RemindersActivityTest :
         onView(withId(R.id.reminderDescription)).perform(typeText("Sample Reminder Description"), closeSoftKeyboard())
         onView(withId(R.id.saveReminder)).perform(click())
 
-        Thread.sleep(15000)
-
         activityScenario.close()
     }
 }

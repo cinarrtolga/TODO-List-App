@@ -1,11 +1,25 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionBarStyle">@style/CustomActionbar</item>
+        <item name="fontFamily">@font/heebo</item>
+        <item name="colorError">@color/colorError</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionBarStyle">@style/CustomActionbar</item>
+        <item name="fontFamily">@font/heebo</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <style name="LoginButtonStyle">
@@ -16,6 +30,10 @@
         <item name="android:layout_marginBottom">16dp</item>
         <item name="android:paddingTop">16dp</item>
         <item name="android:paddingBottom">16dp</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:fontFamily">@font/heebo</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="LoginMailStyle">
@@ -38,4 +56,60 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="CustomActionbar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="background">@color/colorActionbarBackground</item>
+        <item name="android:background">@color/colorActionbarBackground</item>
+    </style>
+
+    <style name="FirebaseUI.CustomHeader">
+        <item name="android:fontFamily">@font/heebo</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="FirebaseUI.CustomBody">
+        <item name="android:fontFamily">@font/heebo_light</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
+
+    <style name="FirebaseUI.CustomButton">
+        <item name="android:paddingBottom">14dp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:fontFamily">@font/heebo</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
+    <style name="FirebaseUI.CustomInput">
+        <item name="android:paddingBottom">14dp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/input_background</item>
+        <item name="android:fontFamily">@font/heebo_light</item>
+    </style>
+
+    <style name="FirebaseUI.StyleReset">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+
+    <style name="FirebaseUI" parent="AppTheme" />
+    <style name="FirebaseUI.TextInputLayout" parent="FirebaseUI.StyleReset" />
+    <style name="FirebaseUI.Text.Heading" parent="@style/FirebaseUI.CustomHeader" />
+    <style name="FirebaseUI.Text.BodyText" parent="@style/FirebaseUI.CustomBody" />
+    <style name="FirebaseUI.Button" parent="@style/FirebaseUI.CustomButton" />
+    <style name="FirebaseUI.TextInputEditText" parent="@style/FirebaseUI.CustomInput" />
+    <style name="FirebaseUI.TextInputEditText.EmailField" parent="FirebaseUI.StyleReset" />
+    <style name="FirebaseUI.TextInputLayout.EmailField" parent="FirebaseUI.StyleReset" />
+    <style name="FirebaseUI.TextInputEditText.NameField" parent="FirebaseUI.StyleReset" />
+    <style name="FirebaseUI.TextInputLayout.NameField" parent="FirebaseUI.StyleReset" />
+    <style name="FirebaseUI.TextInputEditText.PasswordField" parent="FirebaseUI.StyleReset" />
+    <style name="FirebaseUI.TextInputLayout.PasswordField" parent="FirebaseUI.StyleReset" />
+    <style name="FirebaseUI.TextInputEditText.PhoneField" parent="FirebaseUI.StyleReset" />
+    <style name="FirebaseUI.TextInputLayout.PhoneField" parent="FirebaseUI.StyleReset" />
 </resources>

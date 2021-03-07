@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="248dp"
+    android:height="55dp"
+    android:viewportWidth="248"
+    android:viewportHeight="55">
+
+    <path
+        android:name="button_bg"
+        android:fillColor="#99baf9"
+        android:pathData="M25,0 L223,0 C236.807,0,248,12.312,248,27.5 S236.807,55,223,55 L25,55
+C11.193,55,0,42.688,0,27.5 S11.193,0,25,0 Z" />
+</vector>
