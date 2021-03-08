@@ -216,6 +216,7 @@ class SaveReminderFragment : BaseFragment() {
                     ).show()
 
                     _viewModel.onClear()
+                    _viewModel.navigationCommand.value = NavigationCommand.Back
                 }
                 addOnFailureListener {
                     Toast.makeText(
